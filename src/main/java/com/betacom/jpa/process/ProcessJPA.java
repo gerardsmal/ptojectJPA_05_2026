@@ -41,7 +41,34 @@ public class ProcessJPA {
 //			log.debug("remove socio {}", socioId);
 //			socS.delete(socioId);
 			
-			listSocio();
+//			listSocio();
+//			updateSocio(SocioReq.builder()
+//					.id(10)
+//					.codiceFiscale("zzz99999")
+//					.build()
+//					);
+			
+			/*
+			 * update certificato medico
+			 */
+//			certS.update(CertificatoReq.builder()
+//					.socioId(10)
+//					.dataCertificato("01/06/2026")
+//					.tipo(true)
+//					.build()
+//					);
+			/*
+			 * insert new socio
+			 */
+//			int socioId = insertSocio( SocioReq.builder()
+//					.cognome("Argento")
+//					.nome("Mirko")
+//					.codiceFiscale("qwdbdiwjk")
+//					.email("assd@tin.it")
+//					.build(), "05/06/2026");
+			
+//			log.debug("socio id:3 :{}", socS.getById(3));
+			
 			
 					
 		} catch (Exception e) {
@@ -50,19 +77,25 @@ public class ProcessJPA {
 		
 	}
 	
-	private int insertSocio(SocioReq req, String dataCer) throws Exception{
-		int socioId = socS.create(req);
-		CertificatoReq reqCert = CertificatoReq.builder()
-				.dataCertificato(dataCer)
-				.socioId(socioId)
-				.build();
-		certS.create(reqCert);
-		return socioId;
-	
-	}
-	
-	private void listSocio() throws Exception {
-		List<SocioDTO> lS = socS.list();
-		lS.forEach(s -> log.debug(s.toString()));
-	}
+//	private int insertSocio(SocioReq req, String dataCer) throws Exception{
+//		int socioId = socS.create(req);
+//		CertificatoReq reqCert = CertificatoReq.builder()
+//				.dataCertificato(dataCer)
+//				.socioId(socioId)
+//				.build();
+//		certS.update(reqCert);
+//		return socioId;
+//	
+//	}
+//
+//	private void updateSocio(SocioReq req) throws Exception{
+//		socS.update(req);
+//	}
+//
+//	
+//	
+//	private void listSocio() throws Exception {
+//		List<SocioDTO> lS = socS.list();
+//		lS.forEach(s -> log.debug(s.toString()));
+//	}
 }

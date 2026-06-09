@@ -1,8 +1,9 @@
 
-    alter table socio 
-       drop 
-       foreign key fk_socio_certificato;
+    set client_min_messages = WARNING;
 
-    drop table if exists certificato_medico;
+    alter table if exists socio 
+       drop constraint if exists fk_socio_certificato;
 
-    drop table if exists socio;
+    drop table if exists certificato_medico cascade;
+
+    drop table if exists socio cascade;

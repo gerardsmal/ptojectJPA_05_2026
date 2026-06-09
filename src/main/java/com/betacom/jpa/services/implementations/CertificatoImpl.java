@@ -24,11 +24,17 @@ public class CertificatoImpl implements ICertificatoServices{
 	
 	@Transactional
 	@Override
-	public void create(CertificatoReq req) throws Exception {
+	public void update(CertificatoReq req) throws Exception {
 		log.debug("create {}", req);
 		Socio soc = repS.findById(req.getSocioId())
 				.orElseThrow(() -> new AcademyException("Socio non trovato"));
-		Certificato cer = new Certificato();
+		Certificato cer = null;
+		if (soc.getCertificato() == null) {
+			log.debug("new certificato per {}", soc.getId());
+			cer = new Certificato();
+		} else
+			cer = soc.getCertificato();
+		
 		try {
 			cer.setDataCertificato(Utilities.stringToDate(req.getDataCertificato()));			
 		} catch (Exception e) {

@@ -25,7 +25,7 @@ public class SocioImpl implements ISocioServices{
 	
 	@Transactional
 	@Override
-	public Integer create(SocioReq req) throws Exception {
+	public void create(SocioReq req) throws Exception {
 		log.debug("create {}", req);
 		Socio soc = new Socio();
 		if (req.getCodiceFiscale() == null)
@@ -42,10 +42,32 @@ public class SocioImpl implements ISocioServices{
 		soc.setNome(req.getNome());
 		soc.setEmail(req.getEmail());
 		
-		return repS.save(soc).getId();
+		repS.save(soc);
 		
 	}
 
+	@Transactional
+	@Override
+	public void update(SocioReq req) throws Exception {
+		log.debug("update {}", req);
+		Socio soc = repS.findById(req.getId())
+				.orElseThrow(() -> new AcademyException("Socio non trovato"));
+		if (req.getCodiceFiscale() != null && !req.getCodiceFiscale().equalsIgnoreCase(soc.getCodiceFiscale())) {
+			if (repS.existsByCodiceFiscale(req.getCodiceFiscale()))
+				throw new AcademyException("Codice fiscale gia esistante");
+			soc.setCodiceFiscale(req.getCodiceFiscale());
+		}
+		if (req.getCognome() != null)
+			soc.setCognome(req.getCognome());
+		if (req.getNome() != null)
+			soc.setNome(req.getNome());
+		if (req.getEmail() != null)
+			soc.setEmail(req.getEmail());
+		repS.save(soc);
+	}
+
+	
+	
 	@Transactional
 	@Override
 	public void delete(Integer id) throws Exception {
@@ -62,6 +84,16 @@ public class SocioImpl implements ISocioServices{
 		log.debug("list");
 		List<Socio> lS = repS.findAll();
 		return SocioMap.buildSocioDTOList(lS);
+	}
+
+
+	@Override
+	public SocioDTO getById(Integer id) throws Exception {
+		log.debug("getById {}", id);
+		Socio soc = repS.findById(id)
+				.orElseThrow(() -> new AcademyException("Socio non trovato"));
+		
+		return SocioMap.buildSocioDTO(soc);
 	}
 
 }
