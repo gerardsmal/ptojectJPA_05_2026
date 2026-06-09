@@ -2,7 +2,6 @@ package com.betacom.jpa.dto.input;
 
 import java.time.LocalDate;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -10,10 +9,10 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-public class CertificatoReq {
+public class AbbonamentoReq {
 	private Integer id;
-	private Boolean tipo;    // false normale true agonisctico
-	private String dataCertificato;
+	private String dataIscrizione;
 	private Integer socioId;
+	private Integer durataValidita;
 
 }
