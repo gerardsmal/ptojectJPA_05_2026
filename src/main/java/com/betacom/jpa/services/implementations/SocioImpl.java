@@ -2,6 +2,7 @@ package com.betacom.jpa.services.implementations;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,13 +38,13 @@ public class SocioImpl implements ISocioServices{
 		if (repS.existsByCodiceFiscale(req.getCodiceFiscale()))
 			throw new AcademyException("Codice fiscale gia esistante");			
 		soc.setCodiceFiscale(req.getCodiceFiscale());
-		if (req.getCognome() == null)
-			throw new AcademyException("Cognome non caricato");
-		soc.setCognome(req.getCognome());
 		
-		if (req.getNome() == null)
-			throw new AcademyException("nome non caricato");	
-		soc.setNome(req.getNome());
+		soc.setCognome(Optional.ofNullable(req.getCognome())
+				.orElseThrow(() -> new AcademyException("Cognome non caricato")));
+		
+		soc.setNome(Optional.ofNullable(req.getNome())
+				.orElseThrow(() -> new AcademyException("nome non caricato")));
+		
 		soc.setEmail(req.getEmail());
 		
 		repS.save(soc);
@@ -63,13 +64,11 @@ public class SocioImpl implements ISocioServices{
 				throw new AcademyException("Codice fiscale gia esistante");
 			soc.setCodiceFiscale(req.getCodiceFiscale());
 		}
-		if (req.getCognome() != null)
-			soc.setCognome(req.getCognome());
-		if (req.getNome() != null)
-			soc.setNome(req.getNome());
-		if (req.getEmail() != null)
-			soc.setEmail(req.getEmail());
-		repS.save(soc);
+		
+		Optional.ofNullable(req.getCognome()).ifPresent(soc::setCognome);
+		Optional.ofNullable(req.getNome()).ifPresent(soc::setNome);
+		Optional.ofNullable(req.getEmail()).ifPresent(soc::setEmail);
+
 	}
 
 	
@@ -77,7 +76,7 @@ public class SocioImpl implements ISocioServices{
 	@Transactional
 	@Override
 	public void delete(Integer id) throws Exception {
-		log.debug("delete {}", id);
+		log.debug("delete {}", id);		
 		Socio soc = repS.findById(id)
 				.orElseThrow(() -> new AcademyException("Socio non trovato"));
 		
@@ -105,6 +104,10 @@ public class SocioImpl implements ISocioServices{
 	@Override
 	public List<SocioDTO> list() throws Exception {
 		log.debug("list");
+		List<Socio> ss = repS.searchByCognome("A");
+		ss.forEach(s -> log.debug("prova: {}", s.toString()));
+		
+		
 		List<Socio> lS = repS.findAll();
 		return SocioMap.buildSocioDTOList(lS);
 	}

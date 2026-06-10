@@ -9,12 +9,16 @@ public class AbbonamentoMap {
 	
 	public static List<AbbonamentoDTO> buildAbbonamentoDTOList(List<Abbonamento> lA){
 		return lA.stream()
-				.map (a -> AbbonamentoDTO.builder()
-						.id(a.getId())
-						.dataIscrizione(a.getDataIscrizione())
-						.durataValidita(a.getDurataValidita())
-						.build()
+				.map (a -> buildAbbonamentoDTO(a)
 						).toList();
 		
+	}
+	public static AbbonamentoDTO buildAbbonamentoDTO(Abbonamento a) {
+		return AbbonamentoDTO.builder()
+				.id(a.getId())
+				.dataIscrizione(a.getDataIscrizione())
+				.durataValidita(a.getDurataValidita())
+				.attivita(AttivitaMap.buildAttivitaDTOList(a.getAttivita()))
+				.build();
 	}
 }
