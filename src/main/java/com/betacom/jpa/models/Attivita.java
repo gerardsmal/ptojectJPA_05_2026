@@ -37,7 +37,7 @@ public class Attivita {
 	
 	@ManyToMany (
 			mappedBy = "attivita",
-			fetch = FetchType.EAGER
+			fetch = FetchType.LAZY
 			)
 	List<Abbonamento> abbonamento;
 }

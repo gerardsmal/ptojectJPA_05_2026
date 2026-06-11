@@ -104,9 +104,10 @@ public class SocioImpl implements ISocioServices{
 	@Override
 	public List<SocioDTO> list() throws Exception {
 		log.debug("list");
-		List<Socio> ss = repS.searchByCognome("A");
-		ss.forEach(s -> log.debug("prova: {}", s.toString()));
-		
+//		List<Socio> ss = repS.searchByCognome("A");
+//		List<Socio> ss = repS.findByCognomeStartingWith("A");
+//			ss.forEach(s -> log.debug("prova: {}", s.toString()));
+//		
 		
 		List<Socio> lS = repS.findAll();
 		return SocioMap.buildSocioDTOList(lS);
@@ -120,6 +121,13 @@ public class SocioImpl implements ISocioServices{
 				.orElseThrow(() -> new AcademyException("Socio non trovato"));
 		
 		return SocioMap.buildSocioDTO(soc);
+	}
+
+	@Override
+	public List<SocioDTO> listByAttivita(Integer id) throws Exception {
+		log.debug("listByAttivita {}", id);
+		List<Socio> lS = repS.selectByAttivita(id);
+		return SocioMap.buildSocioDTOList(lS);
 	}
 
 }

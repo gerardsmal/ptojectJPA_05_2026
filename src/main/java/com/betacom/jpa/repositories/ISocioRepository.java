@@ -14,6 +14,11 @@ import com.betacom.jpa.models.Socio;
 public interface ISocioRepository extends JpaRepository<Socio, Integer>{
 	Boolean existsByCodiceFiscale(String codiceFiscale);
 	
-	@Query ("select s from Socio s where cognome like :cognome%")
+	@Query (name="socio.cognome.like")
 	List<Socio> searchByCognome(@Param("cognome")  String cognome);
+	
+	List<Socio> findByCognomeStartingWith(String cognome);
+	
+	@Query (name="socio.selectByAttivita")
+	List<Socio> selectByAttivita(@Param("id") Integer id);
 }

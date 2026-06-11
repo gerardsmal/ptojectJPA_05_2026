@@ -39,6 +39,20 @@ public class SocioController {
 		}
 		return ResponseEntity.status(status).body(r);
 	}
+
+	@GetMapping("/listByAttivita")
+	public ResponseEntity<Object> listByAttivita(@RequestParam (required = true) Integer id){
+		Object r = new Object();
+		HttpStatus status = HttpStatus.OK;
+		try {
+			r = socioS.listByAttivita(id);
+		} catch (Exception e) {
+			r=e.getMessage();
+			status = HttpStatus.BAD_REQUEST;
+		}
+		return ResponseEntity.status(status).body(r);
+	}
+
 	
 	@GetMapping("getById")
 	public ResponseEntity<Object> getById(@RequestParam (required = true) Integer id){
