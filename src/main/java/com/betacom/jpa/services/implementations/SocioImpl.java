@@ -34,18 +34,12 @@ public class SocioImpl implements ISocioServices{
 	public void create(SocioReq req) throws Exception {
 		log.debug("create {}", req);
 		Socio soc = new Socio();
-		if (req.getCodiceFiscale() == null)
-			throw new AcademyException("socio.cfisc.invalid");
 		if (repS.existsByCodiceFiscale(req.getCodiceFiscale()))
-			throw new AcademyException("socio.cfisc.exist");			
+			throw new AcademyException("socio.cfisc.exist");
+		
 		soc.setCodiceFiscale(req.getCodiceFiscale());
-		
-		soc.setCognome(Optional.ofNullable(req.getCognome())
-				.orElseThrow(() -> new AcademyException("socio.no.cognome")));
-		
-		soc.setNome(Optional.ofNullable(req.getNome())
-				.orElseThrow(() -> new AcademyException("socio.no.nome")));
-		
+		soc.setCognome(req.getCognome());
+		soc.setNome(req.getNome());
 		soc.setEmail(req.getEmail());
 		
 		repS.save(soc);
@@ -56,8 +50,7 @@ public class SocioImpl implements ISocioServices{
 	@Override
 	public void update(SocioReq req) throws Exception {
 		log.debug("update {}", req);
-		if (req.getId() == null)
-			throw new AcademyException("socio.no.id");
+
 		Socio soc = repS.findById(req.getId())
 				.orElseThrow(() -> new AcademyException("socio.ntfnd"));
 		if (req.getCodiceFiscale() != null && !req.getCodiceFiscale().equalsIgnoreCase(soc.getCodiceFiscale())) {

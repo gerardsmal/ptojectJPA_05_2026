@@ -1,6 +1,7 @@
 package com.betacom.jpa.controllers;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.betacom.jpa.dto.input.SocioReq;
+import com.betacom.jpa.dto.input.ValidationGroups;
 import com.betacom.jpa.dto.output.ResponseDTO;
 import com.betacom.jpa.services.interfaces.ISocioServices;
 
@@ -49,7 +51,7 @@ public class SocioController {
 	
 	
 	@PostMapping("create")
-	public ResponseEntity<ResponseDTO> create(@RequestBody (required = true) SocioReq req) throws Exception{
+	public ResponseEntity<ResponseDTO> create(@RequestBody (required = true) @Validated(ValidationGroups.Create.class) SocioReq req) throws Exception{
 			socioS.create(req);
 		return ResponseEntity.ok(ResponseDTO.builder()
 				.msg("created...")
@@ -58,7 +60,7 @@ public class SocioController {
 	}
 	
 	@PatchMapping("update")
-	public ResponseEntity<ResponseDTO> update(@RequestBody (required = true) SocioReq req) throws Exception{
+	public ResponseEntity<ResponseDTO> update(@RequestBody (required = true) @Validated(ValidationGroups.Update.class) SocioReq req) throws Exception{
 			socioS.update(req);
 			return ResponseEntity.ok(ResponseDTO.builder()
 					.msg("updated...")
