@@ -14,6 +14,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -54,4 +55,11 @@ public class Abbonamento {
 			inverseJoinColumns = @JoinColumn (name = "attivita_id" )
 			)
 	List<Attivita> attivita;
+	
+	@OneToMany(
+			mappedBy = "abbonamento",
+			fetch = FetchType.EAGER
+			)
+	private List<PagamentoRicevute> pagamentoRicevute;
+
 }

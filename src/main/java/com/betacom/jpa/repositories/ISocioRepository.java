@@ -21,4 +21,12 @@ public interface ISocioRepository extends JpaRepository<Socio, Integer>{
 	
 	@Query (name="socio.selectByAttivita")
 	List<Socio> selectByAttivita(@Param("id") Integer id);
+	
+	@Query (name ="socio.selectByFilter")
+	List<Socio> searchByFilter(
+			@Param("id") Integer id,
+			@Param("nome") String nome,
+			@Param("cognome") String cognome,
+			@Param("attivita") Integer attivita
+			);
 }

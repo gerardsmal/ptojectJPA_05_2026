@@ -29,14 +29,14 @@ public class AttivitaImpl implements IAttivitaServices{
 	public void create(AttivitaReq req) throws Exception {
 		log.debug("create {}", req);
 		if (attivR.existsByDescrizione(req.getDescrizione().trim().toUpperCase()))
-			throw new AcademyException("Attivita esistente in db");
+			throw new AcademyException("attiv.exist");
 		Attivita at = new Attivita();
 
 		at.setDescrizione(Optional.ofNullable(req.getDescrizione().trim().toUpperCase())
-				.orElseThrow(() -> new AcademyException("Descrizione non caricato")));
+				.orElseThrow(() -> new AcademyException("attiv.no.desc")));
 
 		at.setPrezzo(Optional.ofNullable(req.getPrezzo())
-				.orElseThrow(() -> new AcademyException("Prezzo non caricato")));
+				.orElseThrow(() -> new AcademyException("attiv.no.price")));
 
 		attivR.save(at);
 	}
@@ -46,11 +46,11 @@ public class AttivitaImpl implements IAttivitaServices{
 	public void update(AttivitaReq req) throws Exception {
 		log.debug("update {}", req);
 		Attivita at = attivR.findById(req.getId())
-				.orElseThrow(() -> new AcademyException("Attivita non trovata"));
+				.orElseThrow(() -> new AcademyException("attiv.ntfnd"));
 		
 		if (req.getDescrizione() != null) {
 			if (attivR.existsByDescrizione(req.getDescrizione().trim().toUpperCase()))
-				throw new AcademyException("Attivita esistente in db");
+				throw new AcademyException("attiv.exist");
 			at.setDescrizione(req.getDescrizione().translateEscapes().toUpperCase());
 		}
 		
@@ -63,9 +63,9 @@ public class AttivitaImpl implements IAttivitaServices{
 	public void delete(Integer id) throws Exception {
 		log.debug("delete {}", id);
 		Attivita at = attivR.findById(id)
-				.orElseThrow(() -> new AcademyException("Attivita non trovata"));
+				.orElseThrow(() -> new AcademyException("attiv.ntfnd"));
 		if (!at.getAbbonamento().isEmpty())
-			throw new AcademyException("Attivita collagata con abbonamento");
+			throw new AcademyException("attiv.invalid.delete");
 		attivR.delete(at);
 	}
 

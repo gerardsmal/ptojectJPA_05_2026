@@ -2,6 +2,7 @@ package com.betacom.jpa.services.interfaces;
 
 import com.betacom.jpa.dto.input.AbbonamentoReq;
 import com.betacom.jpa.dto.output.AbbonamentoDTO;
+import com.betacom.jpa.dto.output.RicevutaDTO;
 
 public interface IAbbonamentoServices {
 
@@ -12,6 +13,8 @@ public interface IAbbonamentoServices {
 	void createAbbonamentoAttivita(AbbonamentoReq req) throws Exception;
 	void deleteAbbonamentoAttivita(Integer id, Integer sttivitaId) throws Exception;
 	
+	
+	RicevutaDTO buildRicevuta(Integer id) throws Exception;
 	
 	AbbonamentoDTO getAbbonamentoById(Integer id) throws Exception;
 }

@@ -10,6 +10,12 @@
     alter table if exists abbonamento_socio 
        drop constraint if exists fk_abbonamento_socio;
 
+    alter table if exists pagamento_ricevute 
+       drop constraint if exists fk_pagamento_abbonamento;
+
+    alter table if exists pagamento_ricevute 
+       drop constraint if exists fk_pagamento_attivita;
+
     alter table if exists socio 
        drop constraint if exists fk_socio_certificato;
 
@@ -20,5 +26,9 @@
     drop table if exists attivita cascade;
 
     drop table if exists certificato_medico cascade;
+
+    drop table if exists messaggi_sistema cascade;
+
+    drop table if exists pagamento_ricevute cascade;
 
     drop table if exists socio cascade;

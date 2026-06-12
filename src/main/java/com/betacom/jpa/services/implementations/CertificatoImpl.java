@@ -28,9 +28,9 @@ public class CertificatoImpl implements ICertificatoServices{
 		log.debug("create {}", req);
 		
 		if (req.getSocioId() == null)
-			throw new AcademyException("Manca l'id socio per il certificato");
+			throw new AcademyException("certif.no.socio");
 		Socio soc = repS.findById(req.getSocioId())
-				.orElseThrow(() -> new AcademyException("Socio non trovato"));
+				.orElseThrow(() -> new AcademyException("socio.ntfnd"));
 		Certificato cer = null;
 		if (soc.getCertificato() == null) {
 			log.debug("new certificato per {}", soc.getId());

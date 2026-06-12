@@ -1,6 +1,5 @@
 package com.betacom.jpa.controllers;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,93 +28,60 @@ public class AbbonamentoController {
 	
 	
 	@PostMapping("create")
-	public ResponseEntity<ResponseDTO> create(@RequestBody (required = true) AbbonamentoReq req) {
-		ResponseDTO r = new ResponseDTO();
-		HttpStatus status = HttpStatus.OK;
-		try {
+	public ResponseEntity<ResponseDTO> create(@RequestBody (required = true) AbbonamentoReq req) throws Exception{
 			abboS.create(req);
-			r.setMsg("created...");
-		} catch (Exception e) {
-			r.setMsg(e.getMessage());
-			status = HttpStatus.BAD_REQUEST;
-		}
-		return ResponseEntity.status(status).body(r);
+			return ResponseEntity.ok(ResponseDTO.builder()
+					.msg("created...")
+					.build());
 	}
 	
 
 	@PutMapping("update")
-	public ResponseEntity<ResponseDTO> update(@RequestBody (required = true) AbbonamentoReq req) {
-		ResponseDTO r = new ResponseDTO();
-		HttpStatus status = HttpStatus.OK;
-		try {
+	public ResponseEntity<ResponseDTO> update(@RequestBody (required = true) AbbonamentoReq req) throws Exception {
 			abboS.update(req);
-			r.setMsg("updated...");
-		} catch (Exception e) {
-			r.setMsg(e.getMessage());
-			status = HttpStatus.BAD_REQUEST;
-		}
-		return ResponseEntity.status(status).body(r);
+			return ResponseEntity.ok(ResponseDTO.builder()
+					.msg("updated...")
+					.build());
 	}
 
 	@DeleteMapping("delete/{id}/{socioId}")
 	public ResponseEntity<ResponseDTO> delete(
 			@PathVariable (required = true) Integer id,
 			@PathVariable (required = true) Integer socioId
-			) {
-		ResponseDTO r = new ResponseDTO();
-		HttpStatus status = HttpStatus.OK;
-		try {
+			) throws Exception{
 			abboS.delete(id,socioId);
-			r.setMsg("deleted...");
-		} catch (Exception e) {
-			r.setMsg(e.getMessage());
-			status = HttpStatus.BAD_REQUEST;
-		}
-		return ResponseEntity.status(status).body(r);
+			return ResponseEntity.ok(ResponseDTO.builder()
+					.msg("deleted...")
+					.build());
 	}
 
 	@PostMapping("addAttivita")
-	public ResponseEntity<ResponseDTO> addAttivita(@RequestBody (required = true) AbbonamentoReq req) {
-		ResponseDTO r = new ResponseDTO();
-		HttpStatus status = HttpStatus.OK;
-		try {
+	public ResponseEntity<ResponseDTO> addAttivita(@RequestBody (required = true) AbbonamentoReq req) throws Exception{
 			abboS.createAbbonamentoAttivita(req);
-			r.setMsg("added...");
-		} catch (Exception e) {
-			r.setMsg(e.getMessage());
-			status = HttpStatus.BAD_REQUEST;
-		}
-		return ResponseEntity.status(status).body(r);
+			return ResponseEntity.ok(ResponseDTO.builder()
+					.msg("added...")
+					.build());
 	}
 
 	@DeleteMapping("deleteAttivita/{id}/{attivitaID}")
 	public ResponseEntity<ResponseDTO> deleteAttivita(
 			@PathVariable (required = true) Integer id,
-			@PathVariable (required = true) Integer attivitaID) {
-		ResponseDTO r = new ResponseDTO();
-		HttpStatus status = HttpStatus.OK;
-		try {
+			@PathVariable (required = true) Integer attivitaID) throws Exception{
 			abboS.deleteAbbonamentoAttivita(id, attivitaID);
-			r.setMsg("deleted...");
-		} catch (Exception e) {
-			r.setMsg(e.getMessage());
-			status = HttpStatus.BAD_REQUEST;
-		}
-		return ResponseEntity.status(status).body(r);
+			return ResponseEntity.ok(ResponseDTO.builder()
+					.msg("deleted...")
+					.build());
 	}
 
 	
 	@GetMapping("getAbbonamentoById")
-	public ResponseEntity<Object> getAbbonamentoById(@RequestParam (required = true) Integer id){
-		Object r = new Object();
-		HttpStatus status = HttpStatus.OK;
-		try {
-			r = abboS.getAbbonamentoById(id);
-		} catch (Exception e) {
-			r=e.getMessage();
-			status = HttpStatus.BAD_REQUEST;
-		}
-		return ResponseEntity.status(status).body(r);
+	public ResponseEntity<Object> getAbbonamentoById(@RequestParam (required = true) Integer id) throws Exception{
+		return ResponseEntity.ok(abboS.getAbbonamentoById(id)) ;
 	}
-	
+
+	@GetMapping("buildRicevuta")
+	public ResponseEntity<Object> buildRicevuta(@RequestParam (required = true) Integer id) throws Exception{
+			return ResponseEntity.ok(abboS.buildRicevuta(id));
+	}
+
 }

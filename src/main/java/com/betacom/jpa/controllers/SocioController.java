@@ -1,6 +1,5 @@
 package com.betacom.jpa.controllers;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,85 +27,49 @@ public class SocioController {
 	private final ISocioServices socioS;
 	
 	@GetMapping("/list")
-	public ResponseEntity<Object> list(){
-		Object r = new Object();
-		HttpStatus status = HttpStatus.OK;
-		try {
-			r = socioS.list();
-		} catch (Exception e) {
-			r=e.getMessage();
-			status = HttpStatus.BAD_REQUEST;
-		}
-		return ResponseEntity.status(status).body(r);
+	public ResponseEntity<Object> list(
+			@RequestParam (required = false)  Integer id,
+			@RequestParam (required = false)  String nome,
+			@RequestParam (required = false)  String cognome,
+			@RequestParam (required = false)  Integer attivita		
+			) throws Exception{
+			return ResponseEntity.ok(socioS.list(id, nome, cognome, attivita));
 	}
 
 	@GetMapping("/listByAttivita")
-	public ResponseEntity<Object> listByAttivita(@RequestParam (required = true) Integer id){
-		Object r = new Object();
-		HttpStatus status = HttpStatus.OK;
-		try {
-			r = socioS.listByAttivita(id);
-		} catch (Exception e) {
-			r=e.getMessage();
-			status = HttpStatus.BAD_REQUEST;
-		}
-		return ResponseEntity.status(status).body(r);
+	public ResponseEntity<Object> listByAttivita(@RequestParam (required = true) Integer id) throws Exception{
+			return ResponseEntity.ok(socioS.listByAttivita(id));
 	}
 
 	
 	@GetMapping("getById")
-	public ResponseEntity<Object> getById(@RequestParam (required = true) Integer id){
-		Object r = new Object();
-		HttpStatus status = HttpStatus.OK;
-		try {
-			r = socioS.getById(id);
-		} catch (Exception e) {
-			r=e.getMessage();
-			status = HttpStatus.BAD_REQUEST;
-		}
-		return ResponseEntity.status(status).body(r);
+	public ResponseEntity<Object> getById(@RequestParam (required = true) Integer id) throws Exception{
+			return ResponseEntity.ok(socioS.getById(id));
 	}
 	
 	
 	@PostMapping("create")
-	public ResponseEntity<ResponseDTO> create(@RequestBody (required = true) SocioReq req) {
-		ResponseDTO r = new ResponseDTO();
-		HttpStatus status = HttpStatus.OK;
-		try {
+	public ResponseEntity<ResponseDTO> create(@RequestBody (required = true) SocioReq req) throws Exception{
 			socioS.create(req);
-			r.setMsg("created...");
-		} catch (Exception e) {
-			r.setMsg(e.getMessage());
-			status = HttpStatus.BAD_REQUEST;
-		}
-		return ResponseEntity.status(status).body(r);
+		return ResponseEntity.ok(ResponseDTO.builder()
+				.msg("created...")
+				.build());
+	
 	}
 	
 	@PatchMapping("update")
-	public ResponseEntity<ResponseDTO> update(@RequestBody (required = true) SocioReq req) {
-		ResponseDTO r = new ResponseDTO();
-		HttpStatus status = HttpStatus.OK;
-		try {
+	public ResponseEntity<ResponseDTO> update(@RequestBody (required = true) SocioReq req) throws Exception{
 			socioS.update(req);
-			r.setMsg("updated...");
-		} catch (Exception e) {
-			r.setMsg(e.getMessage());
-			status = HttpStatus.BAD_REQUEST;
-		}
-		return ResponseEntity.status(status).body(r);
+			return ResponseEntity.ok(ResponseDTO.builder()
+					.msg("updated...")
+					.build());
 	}
 	
 	@DeleteMapping("delete/{id}")
-	public ResponseEntity<ResponseDTO> delete(@PathVariable (required = true) Integer id) {
-		ResponseDTO r = new ResponseDTO();
-		HttpStatus status = HttpStatus.OK;
-		try {
+	public ResponseEntity<ResponseDTO> delete(@PathVariable (required = true) Integer id) throws Exception{
 			socioS.delete(id);
-			r.setMsg("deleted...");
-		} catch (Exception e) {
-			r.setMsg(e.getMessage());
-			status = HttpStatus.BAD_REQUEST;
-		}
-		return ResponseEntity.status(status).body(r);
+			return ResponseEntity.ok(ResponseDTO.builder()
+					.msg("deleted...")
+					.build());
 	}
 }

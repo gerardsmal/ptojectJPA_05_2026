@@ -1,6 +1,5 @@
 package com.betacom.jpa.controllers;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,17 +23,11 @@ public class CertificatoController {
 	
 	
 	@PutMapping("update")
-	public ResponseEntity<ResponseDTO> update(@RequestBody (required = true) CertificatoReq req) {
-		ResponseDTO r = new ResponseDTO();
-		HttpStatus status = HttpStatus.OK;
-		try {
+	public ResponseEntity<ResponseDTO> update(@RequestBody (required = true) CertificatoReq req) throws Exception{
 			cerS.update(req);
-			r.setMsg("updated...");
-		} catch (Exception e) {
-			r.setMsg(e.getMessage());
-			status = HttpStatus.BAD_REQUEST;
-		}
-		return ResponseEntity.status(status).body(r);
+			return ResponseEntity.ok(ResponseDTO.builder()
+					.msg("updated...")
+					.build());		
 	}
 
 }

@@ -1,0 +1,25 @@
+package com.betacom.jpa.controllers;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import com.betacom.jpa.dto.output.ResponseDTO;
+import com.betacom.jpa.services.interfaces.IMessaggioServices;
+
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
+@RestControllerAdvice
+public class ExceptionManager {
+	private final IMessaggioServices msgS;
+	
+	@ExceptionHandler(Exception.class)
+	public ResponseEntity<ResponseDTO> handleException(Exception e){
+		return ResponseEntity.badRequest()
+				.body(ResponseDTO.builder()
+						.msg(msgS.get(e.getMessage()))
+						.build()
+						);
+	}
+}
