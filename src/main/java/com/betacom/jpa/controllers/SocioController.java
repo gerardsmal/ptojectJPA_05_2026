@@ -51,7 +51,8 @@ public class SocioController {
 	
 	
 	@PostMapping("create")
-	public ResponseEntity<ResponseDTO> create(@RequestBody (required = true) @Validated(ValidationGroups.Create.class) SocioReq req) throws Exception{
+	public ResponseEntity<ResponseDTO> create(
+			@RequestBody (required = true) @Validated(ValidationGroups.Create.class) SocioReq req) throws Exception{
 			socioS.create(req);
 		return ResponseEntity.ok(ResponseDTO.builder()
 				.msg("created...")
@@ -60,7 +61,8 @@ public class SocioController {
 	}
 	
 	@PatchMapping("update")
-	public ResponseEntity<ResponseDTO> update(@RequestBody (required = true) @Validated(ValidationGroups.Update.class) SocioReq req) throws Exception{
+	public ResponseEntity<ResponseDTO> update(
+			@RequestBody (required = true) @Validated(ValidationGroups.Update.class) SocioReq req) throws Exception{
 			socioS.update(req);
 			return ResponseEntity.ok(ResponseDTO.builder()
 					.msg("updated...")
