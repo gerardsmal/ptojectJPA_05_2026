@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.betacom.jpa.dto.input.SocioReq;
 import com.betacom.jpa.dto.output.SocioDTO;
+import com.betacom.jpa.exceptions.AcademyException;
 import com.betacom.jpa.mapping.SocioMap;
 import com.betacom.jpa.models.Abbonamento;
 import com.betacom.jpa.models.Socio;
@@ -17,7 +18,6 @@ import com.betacom.jpa.repositories.ISocioRepository;
 import com.betacom.jpa.services.interfaces.IMessaggioServices;
 import com.betacom.jpa.services.interfaces.ISocioServices;
 
-import exceptions.AcademyException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 

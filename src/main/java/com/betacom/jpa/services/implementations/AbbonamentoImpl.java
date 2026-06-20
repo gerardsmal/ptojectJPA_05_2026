@@ -10,6 +10,7 @@ import com.betacom.jpa.dto.input.AbbonamentoReq;
 import com.betacom.jpa.dto.output.AbbonamentoDTO;
 import com.betacom.jpa.dto.output.AttivitaDTO;
 import com.betacom.jpa.dto.output.RicevutaDTO;
+import com.betacom.jpa.exceptions.AcademyException;
 import com.betacom.jpa.mapping.AbbonamentoMap;
 import com.betacom.jpa.mapping.AttivitaMap;
 import com.betacom.jpa.models.Abbonamento;
@@ -23,7 +24,6 @@ import com.betacom.jpa.repositories.ISocioRepository;
 import com.betacom.jpa.services.interfaces.IAbbonamentoServices;
 import com.betacom.jpa.utils.Utilities;
 
-import exceptions.AcademyException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Locale;
 
-import exceptions.AcademyException;
+import com.betacom.jpa.exceptions.AcademyException;
 
 
 public class Utilities {

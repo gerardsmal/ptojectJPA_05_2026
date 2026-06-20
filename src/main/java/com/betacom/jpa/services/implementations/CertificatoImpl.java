@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.betacom.jpa.dto.input.CertificatoReq;
+import com.betacom.jpa.exceptions.AcademyException;
 import com.betacom.jpa.models.Certificato;
 import com.betacom.jpa.models.Socio;
 import com.betacom.jpa.repositories.ICertificatoRepositoy;
@@ -11,7 +12,6 @@ import com.betacom.jpa.repositories.ISocioRepository;
 import com.betacom.jpa.services.interfaces.ICertificatoServices;
 import com.betacom.jpa.utils.Utilities;
 
-import exceptions.AcademyException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 

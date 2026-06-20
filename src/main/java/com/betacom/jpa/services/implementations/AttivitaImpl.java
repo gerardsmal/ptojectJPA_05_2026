@@ -7,12 +7,12 @@ import org.springframework.stereotype.Service;
 
 import com.betacom.jpa.dto.input.AttivitaReq;
 import com.betacom.jpa.dto.output.AttivitaDTO;
+import com.betacom.jpa.exceptions.AcademyException;
 import com.betacom.jpa.mapping.AttivitaMap;
 import com.betacom.jpa.models.Attivita;
 import com.betacom.jpa.repositories.IAttivitaRepository;
 import com.betacom.jpa.services.interfaces.IAttivitaServices;
 
-import exceptions.AcademyException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -1,4 +1,4 @@
-package exceptions;
+package com.betacom.jpa.exceptions;
 
 public class AcademyException extends RuntimeException {
 
