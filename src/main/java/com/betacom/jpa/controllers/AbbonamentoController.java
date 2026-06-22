@@ -1,6 +1,7 @@
 package com.betacom.jpa.controllers;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.betacom.jpa.dto.input.AbbonamentoReq;
+import com.betacom.jpa.dto.input.ValidationGroups;
 import com.betacom.jpa.dto.output.ResponseDTO;
 import com.betacom.jpa.services.interfaces.IAbbonamentoServices;
 
@@ -28,7 +30,8 @@ public class AbbonamentoController {
 	
 	
 	@PostMapping("create")
-	public ResponseEntity<ResponseDTO> create(@RequestBody (required = true) AbbonamentoReq req) throws Exception{
+	public ResponseEntity<ResponseDTO> create(
+			@RequestBody (required = true) @Validated(ValidationGroups.Create.class) AbbonamentoReq req) throws Exception{
 			abboS.create(req);
 			return ResponseEntity.ok(ResponseDTO.builder()
 					.msg("created...")
@@ -37,7 +40,8 @@ public class AbbonamentoController {
 	
 
 	@PutMapping("update")
-	public ResponseEntity<ResponseDTO> update(@RequestBody (required = true) AbbonamentoReq req) throws Exception {
+	public ResponseEntity<ResponseDTO> update(
+			@RequestBody (required = true) @Validated(ValidationGroups.Update.class) AbbonamentoReq req) throws Exception {
 			abboS.update(req);
 			return ResponseEntity.ok(ResponseDTO.builder()
 					.msg("updated...")
@@ -56,7 +60,8 @@ public class AbbonamentoController {
 	}
 
 	@PostMapping("addAttivita")
-	public ResponseEntity<ResponseDTO> addAttivita(@RequestBody (required = true) AbbonamentoReq req) throws Exception{
+	public ResponseEntity<ResponseDTO> addAttivita(
+			@RequestBody (required = true)  @Validated(ValidationGroups.Attivita.class) AbbonamentoReq req) throws Exception{
 			abboS.createAbbonamentoAttivita(req);
 			return ResponseEntity.ok(ResponseDTO.builder()
 					.msg("added...")

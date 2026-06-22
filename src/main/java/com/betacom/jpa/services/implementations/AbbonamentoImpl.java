@@ -43,8 +43,7 @@ public class AbbonamentoImpl implements IAbbonamentoServices{
 	@Override
 	public void create(AbbonamentoReq req) throws Exception {
 		log.debug("create :{}", req);
-		if (req.getSocioId() == null)
-			throw new AcademyException("abb.no.id");
+
 		Socio soc = repS.findById(req.getSocioId())
 				.orElseThrow(() -> new AcademyException("socio.ntfnd"));
 		Abbonamento abb = new Abbonamento();
@@ -65,8 +64,7 @@ public class AbbonamentoImpl implements IAbbonamentoServices{
 	@Override
 	public void update(AbbonamentoReq req) throws Exception {
 		log.debug("update :{}", req);
-		if (req.getSocioId() == null)
-			throw new AcademyException("abb.no.id");
+
 		Socio soc = repS.findById(req.getSocioId())
 				.orElseThrow(() -> new AcademyException("socio.ntfnd"));
 		
@@ -119,7 +117,7 @@ public class AbbonamentoImpl implements IAbbonamentoServices{
 			throw new AcademyException("abb.attiv.fnd");
 		abb.getAttivita().add(attiv);
 		repA.save(abb);
-		
+ 		
 	}
 
 	
