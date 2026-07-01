@@ -4,6 +4,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.time.LocalDate;
+
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -42,7 +44,7 @@ public class CertificatoTest {
 		
 		CertificatoReq req = new CertificatoReq();
 		req.setSocioId(4);
-		req.setDataCertificato("01/06/2026");
+		req.setDataCertificato(LocalDate.now());
 		req.setTipo(true);
 		
 		mockMvc.perform(put("/rest/certificato/update")

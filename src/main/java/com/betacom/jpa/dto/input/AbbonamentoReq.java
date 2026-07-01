@@ -15,7 +15,7 @@ public class AbbonamentoReq {
 	private Integer id;
 	
 	@NotNull (groups = ValidationGroups.Create.class , message ="abb.no.date")
-	private String dataIscrizione;
+	private LocalDate dataIscrizione;
 	
 	private Integer durataValidita;
 	

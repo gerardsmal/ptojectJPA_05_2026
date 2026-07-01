@@ -38,11 +38,8 @@ public class CertificatoImpl implements ICertificatoServices{
 		} else
 			cer = soc.getCertificato();
 		
-		try {
-			cer.setDataCertificato(Utilities.stringToDate(req.getDataCertificato()));			
-		} catch (Exception e) {
-			throw new AcademyException(e.getMessage());
-		}
+		cer.setDataCertificato(req.getDataCertificato());			
+		
 		cer.setTipo(req.getTipo() == null ? false : req.getTipo());
 		
 		soc.setCertificato(repC.save(cer));

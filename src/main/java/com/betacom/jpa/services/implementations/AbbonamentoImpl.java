@@ -47,12 +47,8 @@ public class AbbonamentoImpl implements IAbbonamentoServices{
 		Socio soc = repS.findById(req.getSocioId())
 				.orElseThrow(() -> new AcademyException("socio.ntfnd"));
 		Abbonamento abb = new Abbonamento();
-	
-		try {
-			abb.setDataIscrizione(Utilities.stringToDate(req.getDataIscrizione()));			
-		} catch (Exception e) {
-			throw new AcademyException(e.getMessage());
-		}
+		
+		abb.setDataIscrizione(req.getDataIscrizione());
 		if (req.getDurataValidita() == null) req.setDurataValidita(6);
 		abb.setDurataValidita(req.getDurataValidita());
 		
@@ -73,11 +69,9 @@ public class AbbonamentoImpl implements IAbbonamentoServices{
 		        .findFirst()
 		        .orElseThrow(() -> new AcademyException("abb.ntfnd"));
 		
-		try {
-			abb.setDataIscrizione(Utilities.stringToDate(req.getDataIscrizione()));			
-		} catch (Exception e) {
-			throw new AcademyException(e.getMessage());
-		}
+		
+		if (req.getDataIscrizione() != null) abb.setDataIscrizione(req.getDataIscrizione());
+		
 		if (req.getDurataValidita() != null)
 			abb.setDurataValidita(req.getDurataValidita());
 		

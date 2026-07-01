@@ -55,7 +55,7 @@ public class SocioImpl implements ISocioServices{
 				.orElseThrow(() -> new AcademyException("socio.ntfnd"));
 		if (req.getCodiceFiscale() != null && !req.getCodiceFiscale().equalsIgnoreCase(soc.getCodiceFiscale())) {
 			if (repS.existsByCodiceFiscale(req.getCodiceFiscale()))
-				throw new AcademyException("socio.cfisc.exist");
+				throw new AcademyException("socio.cfisc.exist");			
 			soc.setCodiceFiscale(req.getCodiceFiscale());
 		}
 		

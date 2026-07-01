@@ -7,6 +7,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.junit.jupiter.api.MethodOrderer;
@@ -46,7 +47,7 @@ public class AbbonamentoTest {
 	public void createAbbonamentoTest() throws Exception{
 		log.debug("createAbbonamentoTest");
 		AbbonamentoReq req = new AbbonamentoReq();
-		req.setDataIscrizione("01/06/2026");
+		req.setDataIscrizione(LocalDate.now());
 		req.setSocioId(2);
 		
 		mockMvc.perform(post("/rest/abbonamento/create")
@@ -61,7 +62,7 @@ public class AbbonamentoTest {
 	public void createAbbonamentoTestError() throws Exception{
 		log.debug("createAbbonamentoTestError");
 		AbbonamentoReq req = new AbbonamentoReq();
-		req.setDataIscrizione("01/06/2026");
+		req.setDataIscrizione(LocalDate.now());
 		
 		MvcResult result =  mockMvc.perform(post("/rest/abbonamento/create")
 				.contentType(MediaType.APPLICATION_JSON)
@@ -82,7 +83,7 @@ public class AbbonamentoTest {
 	public void updateAbbonamentoTest() throws Exception{
 		log.debug("updateAbbonamentoTest");
 		AbbonamentoReq req = new AbbonamentoReq();
-		req.setDataIscrizione("15/06/2026");
+		req.setDataIscrizione(LocalDate.now());
 		req.setSocioId(2);
 		req.setId(1);
 		
