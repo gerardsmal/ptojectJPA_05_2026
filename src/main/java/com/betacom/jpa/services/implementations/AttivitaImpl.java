@@ -3,6 +3,7 @@ package com.betacom.jpa.services.implementations;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.betacom.jpa.dto.input.AttivitaReq;
@@ -48,11 +49,15 @@ public class AttivitaImpl implements IAttivitaServices{
 		Attivita at = attivR.findById(req.getId())
 				.orElseThrow(() -> new AcademyException("attiv.ntfnd"));
 		
-		if (req.getDescrizione() != null) {
-			if (attivR.existsByDescrizione(req.getDescrizione().trim().toUpperCase()))
-				throw new AcademyException("attiv.exist");
-			at.setDescrizione(req.getDescrizione().translateEscapes().toUpperCase());
-		}
+		Optional.ofNullable(req.getDescrizione())
+	    	.map(d -> d.trim().toUpperCase())
+	    	.filter(d -> !d.equals(at.getDescrizione()))
+	    	.ifPresent(d -> {
+	    		if (attivR.existsByDescrizione(d)) {
+	    			throw new AcademyException("attiv.exist");
+	    		}
+	    		at.setDescrizione(d);
+	    });
 		
 		Optional.ofNullable(req.getPrezzo()).ifPresent(at::setPrezzo);
 		
@@ -71,7 +76,8 @@ public class AttivitaImpl implements IAttivitaServices{
 
 	@Override
 	public List<AttivitaDTO> list() throws Exception {
-		List<Attivita> lA = attivR.findAll();
+		List<Attivita> lA = attivR.findAll(Sort.by("descrizione"));
+		
 		return AttivitaMap.buildAttivitaDTOList(lA);
 	}
 
