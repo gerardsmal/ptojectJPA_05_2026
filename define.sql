@@ -52,6 +52,14 @@
         primary key (id)
     );
 
+    create table utente (
+        role smallint check ((role between 0 and 2)),
+        email varchar(255),
+        pwd varchar(255),
+        user_name varchar(255) not null,
+        primary key (user_name)
+    );
+
     alter table if exists abbonamento_attivita 
        add constraint FK853iwjge5sco7nac3v8pvs72v 
        foreign key (attivita_id) 
