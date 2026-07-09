@@ -31,6 +31,8 @@
 
     drop table if exists pagamento_ricevute cascade;
 
+    drop table if exists persone_angular cascade;
+
     drop table if exists socio cascade;
 
     drop table if exists utente cascade;
